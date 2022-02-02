@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+</head>
+<body>
+<h1>Edit user</h1>
+<form action="#" th:method="PATCH" th:action="@{/admin/new}" th:object="${user}">
+    <table>
+        <tr>
+            <td>
+                <label for="id">Id</label>
+                <input readonly type="number" th:field="*{id}" id="id" placeholder="Id">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="name">Enter name</label>
+                <input type="text" th:field="*{firstName}" id="name" required/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="email">Enter email</label>
+                <input type="text" th:field="*{email}" id="email"/>
+            </td>/
+        </tr>
+        <tr>
+            <td>
+                <label for="username">Enter username</label>
+                <input type="text" th:field="*{username}" id="username"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password">Enter password</label>
+                <input type="text" th:field="*{password}" id="password"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label>Set role:
+                    <input type="checkbox" name="checked"
+                           th:each="role : ${roles}"
+                           th:text="${role.getRoleName()}"
+                           th:value="${role.getId()}"
+                           th:selected="${user.getAuthorities().contains(role)}">
+                </label></td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="submit" class="buttonEdit" value="Edit user"/>
+            </td>
+        </tr>
+    </table>
+</form>
+<br>
+<br>
+<a th:href="@{/logout}"><button type="button">Logout</button></a>
+</body>
+</html>
