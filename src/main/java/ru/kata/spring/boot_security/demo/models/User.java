@@ -54,13 +54,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Set<Role> setOneRole(Role r) {
-        if (roles == null) {
-            roles = new HashSet<>();
-        }
-        roles.add(r);
-        return roles;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
