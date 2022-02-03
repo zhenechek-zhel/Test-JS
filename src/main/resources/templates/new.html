@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Edit user</title>
+    <title>Crate user</title>
 </head>
 <body>
-<h1>Edit user</h1>
-<form action="#" th:method="PATCH" th:action="@{/admin/new}" th:object="${user}">
+<h1>Create user</h1>
+<form action="#" th:method="POST" th:action="@{/admin/new}" th:object="${user}">
     <table>
         <tr>
             <td>
@@ -24,7 +24,7 @@
             <td>
                 <label for="email">Enter email</label>
                 <input type="text" th:field="*{email}" id="email"/>
-            </td>/
+            </td>
         </tr>
         <tr>
             <td>
@@ -40,13 +40,26 @@
         </tr>
         <tr>
             <td>
-                <input type="submit" class="buttonEdit" value="Edit user"/>
+                <label>Set role:
+                    <input type="checkbox" name="checked"
+                           th:each="role : ${roles}"
+                           th:text="${role.getRoleName()}"
+                           th:value="${role.getId()}">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" name="buttonAdd" value="Add user"/>
             </td>
         </tr>
     </table>
     <br>
     <br>
-    <a th:href="@{/logout}"><button type="button">Logout</button></a>
 </form>
+<br>
+<button onclick="window.location.href = '/admin';">Back to users</button>
+<br>
+<a th:href="@{/logout}"><button type="button">Logout</button></a>
 </body>
 </html>

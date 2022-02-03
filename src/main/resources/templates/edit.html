@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Edit user</title>
 </head>
 <body>
 <h1>Edit user</h1>
-<form action="#" th:method="PATCH" th:action="@{/admin/new}" th:object="${user}">
+<form action="#" th:method="PATCH" th:action="@{/admin/edit}" th:object="${user}">
     <table>
         <tr>
             <td>
@@ -24,7 +25,7 @@
             <td>
                 <label for="email">Enter email</label>
                 <input type="text" th:field="*{email}" id="email"/>
-            </td>/
+            </td>
         </tr>
         <tr>
             <td>
@@ -52,12 +53,13 @@
 
         <tr>
             <td>
-                <input type="submit" class="buttonEdit" value="Edit user"/>
+                <input type="submit" class="buttonEdit" value="Update"/>
             </td>
         </tr>
     </table>
 </form>
 <br>
+<button onclick="window.location.href = '/admin';">Back to users</button>
 <br>
 <a th:href="@{/logout}"><button type="button">Logout</button></a>
 </body>
