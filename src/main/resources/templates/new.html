@@ -1,65 +1,60 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Crate user</title>
+    <title>Create new User</title>
 </head>
 <body>
-<h1>Create user</h1>
-<form action="#" th:method="POST" th:action="@{/admin/new}" th:object="${user}">
+<form action="#" th:action="@{/admin/new}" th:object="${user}" th:method="POST">
     <table>
         <tr>
+            <td colspan="2"><h1>Create new User</h1></td>
+        </tr>
+
+        <tr>
+            <td><label for="name">Name</label></td>
+            <td><input type="text" th:field="*{firstName}" id="name" placeholder="Name">
+                </td>
+        </tr>
+        <br>
+        <tr>
+            <td><label for="email">Email</label></td>
+            <td><input type="text" th:field="*{email}" id="email" placeholder="Email" >
+                </td>
+        </tr>
+        <br>
+        <tr>
+            <td><label for="username">Username</label></td>
+            <td><input type="text" th:field="*{username}" id="username" placeholder="Username">
+                </td>
+        </tr>
+        <br>
+        <tr>
+            <td><label for="pass">Password</label></td>
+            <td><input type="text" th:field="*{password}" id="pass" placeholder="Password">
+                </td>
+        </tr>
+        <br>
+        <tr>
             <td>
-                <label for="id">Id</label>
-                <input readonly type="number" th:field="*{id}" id="id" placeholder="Id">
+                <label>Set roles: </label> </td>
+            <td><input type="checkbox" name="roleNames"
+                       th:each="role : ${roles}"
+                       th:text="${role.getRoleName()}"
+                       th:value="${role.getId()}"/>
             </td>
         </tr>
         <tr>
-            <td>
-                <label for="name">Enter name</label>
-                <input type="text" th:field="*{firstName}" id="name" required/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="email">Enter email</label>
-                <input type="text" th:field="*{email}" id="email"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="username">Enter username</label>
-                <input type="text" th:field="*{username}" id="username"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="password">Enter password</label>
-                <input type="text" th:field="*{password}" id="password"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Set role:
-                    <input type="checkbox" name="checked"
-                           th:each="role : ${roles}"
-                           th:text="${role.getRoleName()}"
-                           th:value="${role.getId()}">
-                </label>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" name="buttonAdd" value="Add user"/>
-            </td>
+            <td><input type="submit" name = "submit" value="Add User"></td>
+            <td><a th:href="@{/admin}">
+                <button type="button">Cancel</button>
+            </a></td>
         </tr>
     </table>
     <br>
     <br>
+    <a th:href="@{/logout}"><button type="button">Logout</button></a>
 </form>
-<br>
-<button onclick="window.location.href = '/admin';">Back to users</button>
-<br>
-<a th:href="@{/logout}"><button type="button">Logout</button></a>
+
 </body>
-</html>

@@ -9,6 +9,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import javax.annotation.PostConstruct;
 import java.util.Collection;
 
+
 @Component
 public class Repository {
 
@@ -26,10 +27,10 @@ public class Repository {
     private void addUsers() {
         User admin = new User();
         admin.setRoles((Collection<Role>) roleRepository.findRoleByRoleName("ADMIN"));
-        admin.setFirstName("Tom");
-        admin.setEmail("tom@mail.com");
-        admin.setUsername("tom");
-        admin.setPassword("$2a$12$l9fVBlRtf46YkGWHDkSE9e4eoSsx48DWxpFBTdW/fCWTYzpXrwx.K");
+        admin.setFirstName("Evgeniy");
+        admin.setEmail("evgeniy@mail.com");
+        admin.setUsername("evgen");
+        admin.setPassword("$2a$12$aATh.f0VBoNpezElFX4qW.n28nxwBN5qmPSyHws7avyCDAbDWOOye"); // 123
         userService.create(admin);
 
     }

@@ -43,7 +43,7 @@
         <tr>
             <td>
                 <label>Set role:
-                    <input type="checkbox" name="checked"
+                    <input type="checkbox" name="nameRoles"
                            th:each="role : ${roles}"
                            th:text="${role.getRoleName()}"
                            th:value="${role.getId()}"
