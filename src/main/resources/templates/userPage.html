@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UserPage</title>
+</head>
+<body>
+
+<h1>UserPage</h1>
+<table border="1">
+    <tr>
+        <th th:width="50">Id</th>
+        <th th:width="120">Name</th>
+        <th th:width="120">Email</th>
+        <th th:width="150">Username</th>
+        <th th:width="150">Roles</th>
+    </tr>
+    <td th:utext="${user.id}">Id</td>
+    <td th:utext="${user.firstName}">Name</td>
+    <td th:utext="${user.email}">Email</td>
+    <td th:utext="${user.username}">Username</td>
+    <td th:utext="${user.getRoles()}">Roles</td>
+</table>
+<br>
+<a th:href="@{/logout}"><button type="button">Logout</button></a>
+</body>
+</html>

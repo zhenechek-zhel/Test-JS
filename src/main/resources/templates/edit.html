@@ -46,8 +46,7 @@
                     <input type="checkbox" name="nameRoles"
                            th:each="role : ${roles}"
                            th:text="${role.getRoleName()}"
-                           th:value="${role.getId()}"
-                           th:selected="${user.getAuthorities().contains(role)}">
+                           th:value="${role.getRoleName()}"
                 </label></td>
         </tr>
 

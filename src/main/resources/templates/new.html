@@ -42,7 +42,7 @@
             <td><input type="checkbox" name="roleNames"
                        th:each="role : ${roles}"
                        th:text="${role.getRoleName()}"
-                       th:value="${role.getId()}"/>
+                       th:value="${role.getRoleName()}"/>
             </td>
         </tr>
         <tr>

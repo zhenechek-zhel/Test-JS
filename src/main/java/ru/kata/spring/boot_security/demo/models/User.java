@@ -57,7 +57,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return getSetRoles();
     }
 
     @Override
@@ -102,8 +102,12 @@ public class User implements UserDetails {
         return email;
     }
 
-    public Collection<Role> getRoles() {
+    public Set<Role> getSetRoles() {
         return roles;
+    }
+
+    public String getRoles() {
+        return roles.toString();
     }
 
     public void setId(Long id) {
@@ -128,5 +132,13 @@ public class User implements UserDetails {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = (Set<Role>) roles;
+    }
+
+    public Set<Role> setOneRole(Role r) {
+        if (roles == null) {
+            roles = new HashSet<>();
+        }
+        roles.add(r);
+        return roles;
     }
 }

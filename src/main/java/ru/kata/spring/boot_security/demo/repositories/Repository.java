@@ -7,7 +7,7 @@ import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.annotation.PostConstruct;
-import java.util.Collection;
+
 
 
 @Component
@@ -25,13 +25,15 @@ public class Repository {
 
     @PostConstruct
     private void addUsers() {
-        User admin = new User();
-        admin.setRoles((Collection<Role>) roleRepository.findRoleByRoleName("ADMIN"));
-        admin.setFirstName("Evgeniy");
-        admin.setEmail("evgeniy@mail.com");
-        admin.setUsername("evgen");
-        admin.setPassword("$2a$12$aATh.f0VBoNpezElFX4qW.n28nxwBN5qmPSyHws7avyCDAbDWOOye"); // 123
+        User admin = new User("Evgeniy", "zhel186@mail.com", "admin", "admin");
+        User user = new User("Liza", "liza@mail.com", "user", "user");
+        Role  roleAdmin = new Role("ROLE_ADMIN");
+        Role roleUser = new Role("ROLE_USER");
+        roleService.addRole(roleAdmin);
+        roleService.addRole(roleUser);
+        admin.setOneRole(roleAdmin);
+        user.setOneRole(roleUser);
         userService.create(admin);
-
+        userService.create(user);
     }
 }
