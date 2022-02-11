@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <html lang="en">
+
+
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta charset="UTF-8">
@@ -27,7 +29,7 @@
         <!--Левый блок админ-панели-->
         <div class="col-sm-2 bg-white min-vh-100">
             <ul class="nav nav-pills flex-column"><br><br><br>
-                <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/admin}">Admin</a>
                 </li>
                 <li class="nav-item">
