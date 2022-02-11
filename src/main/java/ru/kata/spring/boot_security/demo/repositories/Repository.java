@@ -9,7 +9,6 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import javax.annotation.PostConstruct;
 
 
-
 @Component
 public class Repository {
 
@@ -27,8 +26,8 @@ public class Repository {
     private void addUsers() {
         User admin = new User("Evgeniy", "zhel186@mail.com", "admin", "admin");
         User user = new User("Liza", "liza@mail.com", "user", "user");
-        Role  roleAdmin = new Role("ROLE_ADMIN");
-        Role roleUser = new Role("ROLE_USER");
+        Role  roleAdmin = new Role("ADMIN");
+        Role roleUser = new Role("USER");
         roleService.addRole(roleAdmin);
         roleService.addRole(roleUser);
         admin.setOneRole(roleAdmin);

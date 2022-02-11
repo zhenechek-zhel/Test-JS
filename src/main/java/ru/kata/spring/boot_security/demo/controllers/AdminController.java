@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,7 @@ import java.util.Set;
 @Controller
 public class AdminController {
 
+    //после обновления пользователя не видно fistName, не перекидывает юзера не его страницу после логина
 
     private UserService userService;
     private RoleService roleService;
@@ -30,35 +30,29 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String getUsers(Model model) {
+    public String getUsers(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        String username = userDetails.getUsername();
+        User user = userService.findUserByUsername(username);
+        model.addAttribute("user", user);
+        model.addAttribute("allRoles", roleService.getAllRoles());
         model.addAttribute("users", userService.getAllUsers());
-        return "index";
+        model.addAttribute("newUser", new User());
+        return "newView";
     }
 
-    @GetMapping("/admin/new")
-    public String newUser(Model model) {
-        model.addAttribute("roles", roleService.getAllRoles());
-        model.addAttribute("user", new User());
-        return "new";
-    }
 
     @PostMapping("/admin/new")
-    public String add(@ModelAttribute("user") User user,
+    public String add(@ModelAttribute User userNew,
                       @RequestParam(value = "roleNames") String[] roleNames) {
         Set<Role> roles = new HashSet<>();
         for (String role : roleNames) {
             roles.add(roleService.findRoleByRoleName(role));
         }
-        user.setRoles(roles);
-        userService.create(user);
+        userNew.setRoles(roles);
+        userService.create(userNew);
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/user/{id}")
-    public String showUserById(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        return "user";
-    }
 
     @GetMapping("/user")
     public String getUserInfo(@AuthenticationPrincipal UserDetails userDetails,
@@ -75,21 +69,20 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/edit/{id}")
-    public String editUser(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("roles", roleService.getAllRoles());
-        model.addAttribute("user", userService.getUser(id));
-        return "edit";
-    }
 
-    @PatchMapping("/admin/edit")
-    public String update(@ModelAttribute("user") User user,
-                         @RequestParam(value = "nameRoles") String [] nameRoles) {
-        Set<Role> roles = new HashSet<>();
+    @PatchMapping("/admin/edit/{id}")
+    public String update(@ModelAttribute User user,
+                         @RequestParam(value = "nameRoles" , required = false) String[] nameRoles) {
+//       if (nameRoles == null) {
+//           user.setOneRole(roleService.findRoleByRoleName("USER"));
+//           userService.updateUser(user);
+//       }
+
+        Set<Role> roles1 = new HashSet<>();
         for (String role : nameRoles) {
-            roles.add(roleService.findRoleByRoleName(role));
+            roles1.add(roleService.findRoleByRoleName(role));
         }
-        user.setRoles(roles);
+        user.setRoles(roles1);
         userService.updateUser(user);
         return "redirect:/admin";
     }

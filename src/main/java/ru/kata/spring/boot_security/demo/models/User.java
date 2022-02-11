@@ -107,7 +107,12 @@ public class User implements UserDetails {
     }
 
     public String getRoles() {
-        return roles.toString();
+        String s = null;
+        for (Role role : roles) {
+             s = role.getRoleName() + "\t";
+        }
+     //   return roles.toString().replaceAll("[,.]", "");
+        return s;
     }
 
     public void setId(Long id) {
@@ -133,6 +138,7 @@ public class User implements UserDetails {
     public void setRoles(Collection<Role> roles) {
         this.roles = (Set<Role>) roles;
     }
+
 
     public Set<Role> setOneRole(Role r) {
         if (roles == null) {
