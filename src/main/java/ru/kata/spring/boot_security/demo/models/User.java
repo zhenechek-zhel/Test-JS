@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -55,6 +57,7 @@ public class User implements UserDetails {
     }
 
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getSetRoles();
@@ -71,21 +74,25 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }
@@ -106,13 +113,13 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public String getRoles() {
-        String s = null;
-        for (Role role : roles) {
-             s = role.getRoleName() + "\t";
-        }
+    public Set<Role> getRoles() {
+//        String s = null;
+//        for (Role role : roles) {
+//             s = role.getRoleName() + "\t";
+//        }
      //   return roles.toString().replaceAll("[,.]", "");
-        return s;
+        return roles;
     }
 
     public void setId(Long id) {
@@ -135,11 +142,13 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    @JsonSetter
     public void setRoles(Collection<Role> roles) {
         this.roles = (Set<Role>) roles;
     }
 
 
+    @JsonIgnore
     public Set<Role> setOneRole(Role r) {
         if (roles == null) {
             roles = new HashSet<>();

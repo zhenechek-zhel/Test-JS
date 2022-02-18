@@ -36,9 +36,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void create(User user) {
+    public User create(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.saveAndFlush(user);
+        return user;
     }
 
     @Override
@@ -57,9 +58,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void updateUser(User user) {
+    public User updateUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.saveAndFlush(user);
+        return user;
     }
 
     @Override

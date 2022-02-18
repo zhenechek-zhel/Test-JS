@@ -9,30 +9,30 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import javax.annotation.PostConstruct;
 
 
-@Component
+//@Component
 public class Repository {
 
-    private UserService userService;
-    private RoleService roleService;
-    private RoleRepository roleRepository;
-
-    public Repository(UserService userService, RoleService roleService, RoleRepository roleRepository) {
-        this.userService = userService;
-        this.roleService = roleService;
-        this.roleRepository = roleRepository;
-    }
-
-    @PostConstruct
-    private void addUsers() {
-        User admin = new User("Evgeniy", "zhel186@mail.com", "admin", "admin");
-        User user = new User("Liza", "liza@mail.com", "user", "user");
-        Role  roleAdmin = new Role("ADMIN");
-        Role roleUser = new Role("USER");
-        roleService.addRole(roleAdmin);
-        roleService.addRole(roleUser);
-        admin.setOneRole(roleAdmin);
-        user.setOneRole(roleUser);
-        userService.create(admin);
-        userService.create(user);
-    }
+//    private UserService userService;
+//    private RoleService roleService;
+//    private RoleRepository roleRepository;
+//
+//    public Repository(UserService userService, RoleService roleService, RoleRepository roleRepository) {
+//        this.userService = userService;
+//        this.roleService = roleService;
+//        this.roleRepository = roleRepository;
+//    }
+//
+//    @PostConstruct
+//    private void addUsers() {
+//        User admin = new User("Evgeniy", "zhel186@mail.com", "admin", "admin");
+//        User user = new User("Liza", "liza@mail.com", "user", "user");
+//        Role  roleAdmin = new Role("ADMIN");
+//        Role roleUser = new Role("USER");
+//        roleService.addRole(roleAdmin);
+//        roleService.addRole(roleUser);
+//        admin.setOneRole(roleAdmin);
+//        user.setOneRole(roleUser);
+//        userService.create(admin);
+//        userService.create(user);
+//    }
 }

@@ -16,6 +16,7 @@ import java.util.Set;
 
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     //после обновления пользователя не видно fistName, не перекидывает юзера не его страницу после логина
@@ -29,7 +30,7 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/admin")
+    @GetMapping()
     public String getUsers(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         String username = userDetails.getUsername();
         User user = userService.findUserByUsername(username);
@@ -41,7 +42,7 @@ public class AdminController {
     }
 
 
-    @PostMapping("/admin/new")
+    @PostMapping("/new")
     public String add(@ModelAttribute User userNew,
                       @RequestParam(value = "roleNames") String[] roleNames) {
         Set<Role> roles = new HashSet<>();
@@ -54,30 +55,16 @@ public class AdminController {
     }
 
 
-    @GetMapping("/user")
-    public String getUserInfo(@AuthenticationPrincipal UserDetails userDetails,
-                              Model model){
-        String username = userDetails.getUsername();
-        User user = userService.findUserByUsername(username);
-        model.addAttribute("user", user);
-        return "userPage";
-    }
-
-    @DeleteMapping("/admin/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/admin";
     }
 
 
-    @PatchMapping("/admin/edit/{id}")
+    @PatchMapping("/edit/{id}")
     public String update(@ModelAttribute User user,
                          @RequestParam(value = "nameRoles" , required = false) String[] nameRoles) {
-//       if (nameRoles == null) {
-//           user.setOneRole(roleService.findRoleByRoleName("USER"));
-//           userService.updateUser(user);
-//       }
-
         Set<Role> roles1 = new HashSet<>();
         for (String role : nameRoles) {
             roles1.add(roleService.findRoleByRoleName(role));
